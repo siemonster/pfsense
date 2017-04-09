@@ -23,8 +23,11 @@ Download new pFsense patterns.
 wget -O /etc/logstash/patterns/pfsense-patterns-2 https://raw.githubusercontent.com/siemonster/pfsense/master/pfsense-patterns-2
 
 ```
-Modify the 03-multisyslog-filter.conf file to add pFsense tagging (see example 03-multisyslog-filter.example.conf in this repo).
-
+Download a replacement 03-multisyslog-filter.conf file to add pFsense tagging (see example 03-multisyslog-filter.example.conf in this repo).
+```
+wget -O /config-dir/03-multisyslog-filter.conf https://raw.githubusercontent.com/siemonster/pfsense/master/03-multisyslog-filter.conf.example
+```
+Edit the file and update the IP address for the pFsense device
 ```
 #change to pfSense IP address
       if [syslog_host] =~ /10\.2\.2\.254/ {
