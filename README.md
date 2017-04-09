@@ -1,5 +1,5 @@
 # pFsense
-Updates for UDP packet loss bewteen containers
+Updates for UDP packet loss bewteen containers. In some Docker environments there are issues with the transmission of UDP packets between containers.
 Tested with pFsense 2.2.6, SIEMonster 2.5
 
 Upgrade the Syslog-NG container in the Rancher UI, change the Network to Host option and check 'Enable Rancher DNS service discovery'.
