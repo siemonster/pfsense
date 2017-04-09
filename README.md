@@ -30,7 +30,7 @@ wget -O /config-dir/03-multisyslog-filter.conf https://raw.githubusercontent.com
 Edit the file and update the IP address for the pFsense device
 ```
 #change to pfSense IP address
-      if [syslog_host] =~ /10\.2\.2\.254/ {
+      if [message] =~ /10\.2\.2\.254/ {
       mutate {
         add_tag => ["PFSense"]
 }
