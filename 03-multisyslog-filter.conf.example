@@ -167,43 +167,17 @@ if [dst_ip] and [dst_ip] !~ "(^127\.0\.0\.1)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0
         replace => [ "DestinationAddress.location", "" ]
          }
        }
-     }
-} 
-else {
-grok {
-      match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}"
-}
-      add_field => [ "received_at", "%{syslog_timestamp}" ]
-#      add_field => [ "received_from", "%{host}" ]
     }
-    syslog_pri { }
-    date {
-      match => [ "syslog_timestamp", "MMM d HH:mm:ss", "MMM dd HH:mm:ss", "MMM dd yyyy HH:mm:ss", "MMM d yyyy HH:mm:ss", "MMM  dd HH:mm:ss", "MMM  dd yyyy HH:mm:ss" ]
-      timezone => "Australia/Melbourne"
-    }
-#   if "_grokparsefailure" in [tags] {
-#   drop { }
-#}
-  
- if [syslog_program] == "err sshd" { 
- grok {
-      match => { "syslog_message" => "%{IP:target_ip}"
-}
-   }
-geoip {
-      source => "target_ip"
-    }
-  }
-}
+ } 
+
 if "Firewall" in [tags] and [src_ip] and [dst_ip] {
   fingerprint {
     concatenate_sources => true
     method => "SHA1"
     key => "logstash"
     source => [ "src_ip", "dst_ip", "dst_port", "protocol" ]
-  }
+    }
    }
- } 
+  } 
 }
 
-0
